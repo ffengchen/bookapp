@@ -1,0 +1,84 @@
+<html>
+  <head>
+    <title>Books API Example</title>
+  </head>
+  <body>
+    <div class="main-body">
+        <form id="form">
+        <div class="form-group">
+            <label for="usr">Enter Book Name</label>
+            <input type="search" class="form-control" id="search-text">
+        </div>
+        <div class="search-button">
+            <button onclick="function2();" type="button" id="search-button" class="btn btn-default">Search</button>
+        </div>
+        </form>
+        <form>
+        <div id="result">
+        <h3 class="title"></h3>
+        <h4 class="author"></h4>
+
+        <img src="" alt="" class="thumbnail">
+        <input type="button" onclick="" id="btn" value="add to toRead list">
+      </form>
+        </div>
+    </div>
+    <script>
+     function function2(){
+         var result = document.getElementById('search-text').value;
+         $.ajax({
+            url: "https://www.googleapis.com/books/v1/volumes?q="+result,
+            type: 'GET',
+            dataType: 'json', 
+            success: handleResponse
+        });
+        function handleResponse(res){
+            $.each(res.items,function(i,item){
+                var title = item.volumeInfo.title,
+                    author = item.volumeInfo.authors[0],
+                    thumb = item.volumeInfo.imageLinks.thumbnail;
+                    
+            $('.title').text(title);
+            $('.author').text(author);
+            $('.thumbnail').attr('src',thumb);
+        })
+        } 
+       }
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</body>
+  
+</html>
+
+
+
+
+
+
+
+
+
+
+<!-- <html>
+  <head>
+    <title>Books API Example</title>
+  </head>
+  <body>
+    <div id="content"></div>
+    <script>
+      function handleResponse(response) {
+
+
+
+
+      for (var i = 0; i < response.items.length; i++) {
+        var item = response.items[i];
+
+        // in production code, item.text should have the HTML entities escaped.
+        document.getElementById("content").innerHTML += "<br>" + item.volumeInfo.title;
+      }
+    }
+    </script>
+    <script src="https://www.googleapis.com/books/v1/volumes?q=harry+potter&callback=handleResponse"></script>
+  </body>
+</html> -->

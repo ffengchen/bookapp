@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>toRead list</title>
+</head>
+<body>
+  <div id="todo-table">
+    <form>
+      <input type="text" name='item' placeholder="Add new item..." required />
+      <button type="submit">Add Item</button>
+    </form>
+    <ul>
+      <% toRead.forEach(function(toRead) { %>
+        <li><%= toRead.item %></li>
+      <% }) %>
+    </ul>
+  </div>
+</body>
+</html>
+
